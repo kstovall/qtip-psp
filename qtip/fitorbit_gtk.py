@@ -29,7 +29,12 @@ import numpy as np
 
 import matplotlib
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+
+try:
+    from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+except ImportError:
+    from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+
 #matplotlib.use('GtkAgg')
 #from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanvas
 #from matplotlib.backends.backend_gtk import NavigationToolbar2GTK as NavigationToolbar
