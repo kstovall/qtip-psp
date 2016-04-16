@@ -660,7 +660,11 @@ class PlkWidget(QtGui.QWidget):
         We need to re-do the fit for this pulsar
         """
         if not self.pspsr is None:
-            self.history = self.history[:self.h_ind+1]
+            # Remove the history from here up
+            while len(self.history) > self.h_ind+1:
+                self.history.pop()
+            #self.history = self.history[:self.h_ind+1]
+
             newcand, loglik = self.pspsr.fit_constrained_iterative(
                     self.history[self.h_ind])
             self.history.append(newcand)
@@ -670,6 +674,8 @@ class PlkWidget(QtGui.QWidget):
     def delete_observation(self, ind):
         """Create a new candidate solution in which we delete this point"""
         # Remove the history from here up
+        while len(self.history) > self.h_ind+1:
+            self.history.pop()
         self.history = self.history[:self.h_ind+1]
 
         # Copy the candidate solution and delete the point
@@ -699,7 +705,9 @@ class PlkWidget(QtGui.QWidget):
             return
 
         # Create a new candidate solution, and remove history after here
-        self.history = self.history[:self.h_ind+1]
+        while len(self.history) > self.h_ind+1:
+            self.history.pop()
+        #self.history = self.history[:self.h_ind+1]
         newcand = psp.CandidateSolution(self.history[self.h_ind])
 
         # Find all the patches that belong to these observations
@@ -1233,7 +1241,10 @@ class PlkWidget(QtGui.QWidget):
             self.updatePlot()
         elif ukey == ord('c') or ukey == ord('C'):
             # Split a coherence patch at this point
-            self.history = self.history[:self.h_ind+1]
+            while len(self.history) < self.h_ind+1:
+                self.history.pop()
+            #self.history = self.history[:self.h_ind+1]
+
             newcand = psp.CandidateSolution(self.history[self.h_ind])
             newcand = self.history[self.h_ind]
             ind = self.coord2point(xpos, ypos, which='x', mode='higher')
@@ -1286,7 +1297,10 @@ class PlkWidget(QtGui.QWidget):
             # Add/delete a phase jump
             rpnjump = 1 if ukey == ord('-') else -1
 
-            self.history = self.history[:self.h_ind+1]
+            while len(self.history) > self.h_ind+1:
+                self.history.pop()
+            #self.history = self.history[:self.h_ind+1]
+
             newcand = psp.CandidateSolution(self.history[self.h_ind])
             #newcand = self.history[self.h_ind]
             ind = self.coord2point(xpos, ypos, which='x', mode='higher')
