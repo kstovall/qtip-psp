@@ -140,6 +140,7 @@ import os, sys
 
 # Importing all the stuff for the IPython console widget
 try:
+    raise ImportError("")
     from PyQt4 import QtGui, QtCore
 except ImportError:
     from qtconsole.qt import QtCore, QtGui

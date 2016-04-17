@@ -13,6 +13,7 @@ import os, sys
 
 # Importing all the stuff for the IPython console widget
 try:
+    raise ImportError("")
     from IPython.qt.console.rich_ipython_widget import RichIPythonWidget
     from IPython.qt.inprocess import QtInProcessKernelManager
     from IPython.lib import guisupport
